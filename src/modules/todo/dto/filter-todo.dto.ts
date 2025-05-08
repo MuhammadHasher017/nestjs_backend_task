@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsBooleanString, IsEnum, IsInt, IsOptional, IsString } from 'class-validator';
 
-import { TodoPriority, TodoStatus } from '../entities/todo.entity';
+import { TodoPriority, TodoStatus } from '@/modules/todo/entities/todo.entity';
 
 export class FilterTodoDto {
   @ApiProperty({ required: false, enum: TodoStatus, description: 'Filter by task status' })
