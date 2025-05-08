@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import configuration from './core/config/configuration';
 import { APP_INTERCEPTOR } from '@nestjs/core';
-import { TransformInterceptor } from './core/interceptor/transform.interceptor';
-
+import { TransformInterceptor } from '@core/interceptor/transform.interceptor';
+import configuration from './core/config/configuration';
 @Module({
   imports: [
     ConfigModule.forRoot({

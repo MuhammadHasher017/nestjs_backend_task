@@ -1,10 +1,10 @@
 import {
-  Injectable,
-  NestInterceptor,
-  ExecutionContext,
   CallHandler,
+  ExecutionContext,
   HttpException,
   HttpStatus,
+  Injectable,
+  NestInterceptor,
 } from '@nestjs/common';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -15,23 +15,16 @@ export interface Response<T> {
 }
 
 @Injectable()
-export class TransformInterceptor<T>
-  implements NestInterceptor<T, Response<T>>
-{
-  intercept(
-    context: ExecutionContext,
-    next: CallHandler,
-  ): Observable<Response<T>> {
+export class TransformInterceptor<T> implements NestInterceptor<T, Response<T>> {
+  intercept(context: ExecutionContext, next: CallHandler): Observable<Response<T>> {
     return next.handle().pipe(
-      map((data) => ({
+      map(data => ({
         status: context.switchToHttp().getResponse().statusCode,
         data: data,
       })),
-      catchError((err) => {
+      catchError(err => {
         const status =
-          err instanceof HttpException
-            ? err.getStatus()
-            : HttpStatus.INTERNAL_SERVER_ERROR;
+          err instanceof HttpException ? err.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
         const errorResponse = {
           status: status,
           data: err.response || {},
