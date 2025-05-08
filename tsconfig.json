@@ -22,8 +22,8 @@
       "@core/*": ["src/core/*"],
       "@config/*": ["src/core/config/*"],
       "@interceptor/*": ["src/core/interceptor/*"],
-      "@modules/*": ["src/core/modules/*"],
-      "@utils/*": ["src/core/utils/*"]
+      "@modules/*": ["src/modules/*"],
+      "@utils/*": ["src/utils/*"]
     }
   }
 }
