@@ -34,8 +34,16 @@ export class Todo {
   @Column()
   name: string;
 
-  @ApiProperty({ description: 'The due date of the task', example: '2025-05-15' })
-  @Column({ type: 'date' })
+  @ApiProperty({
+    description: 'The description of the todo task',
+    example: 'Detailed description of what needs to be done',
+    required: false,
+  })
+  @Column({ type: 'text', nullable: true })
+  description: string;
+
+  @ApiProperty({ description: 'The due date of the task', example: '2025-05-15T12:00:00Z' })
+  @Column({ type: 'timestamp' })
   dueDate: Date;
 
   @ApiProperty({

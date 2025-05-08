@@ -9,12 +9,14 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
 
 import { CreateTodoDto } from './dto/create-todo.dto';
+import { FilterTodoDto } from './dto/filter-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
-import { Todo } from './entities/todo.entity';
+import { Todo, TodoPriority, TodoStatus } from './entities/todo.entity';
 import { TodoService } from './todo.service';
 
 @ApiTags('todo')
@@ -29,11 +31,20 @@ export class TodoController {
   }
 
   @Get()
-  @ApiOperation({ summary: 'Get all todos' })
-  findAll(): Promise<Todo[]> {
-    return this.todoService.findAll();
+  @ApiOperation({ summary: 'Get all todos with pagination and filtering' })
+  @ApiQuery({ name: 'status', required: false, enum: TodoStatus })
+  @ApiQuery({ name: 'priority', required: false, enum: TodoPriority })
+  @ApiQuery({ name: 'isActive', required: false, type: Boolean })
+  @ApiQuery({ name: 'search', required: false, type: String })
+  @ApiQuery({ name: 'sortBy', required: false, enum: ['dueDate', 'createdAt'] })
+  @ApiQuery({ name: 'sortOrder', required: false, enum: ['ASC', 'DESC'] })
+  @ApiQuery({ name: 'page', required: false, type: Number })
+  @ApiQuery({ name: 'limit', required: false, type: Number })
+  findAll(
+    @Query() filterDto: FilterTodoDto,
+  ): Promise<{ data: Todo[]; total: number; page: number; limit: number }> {
+    return this.todoService.findAll(filterDto);
   }
-
   @Get(':id')
   @ApiOperation({ summary: 'Get a todo by id' })
   findOne(@Param('id', ParseUUIDPipe) id: string): Promise<Todo> {

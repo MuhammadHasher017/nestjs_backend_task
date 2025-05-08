@@ -8,10 +8,20 @@ export class CreateTodoDto {
   @IsString()
   name: string;
 
-  @ApiProperty({ example: '2025-05-15' })
+  @ApiProperty({
+    description: 'The description of the todo task',
+    example: 'Detailed description of what needs to be done',
+    required: false,
+  })
+  @IsString()
+  @IsOptional()
+  description?: string;
+
+  @ApiProperty({ example: '2025-05-15T12:00:00Z' })
   @IsDateString()
   dueDate: Date;
 
+  @ApiProperty({ enum: TodoStatus, example: TodoStatus.PENDING })
   @IsEnum(TodoStatus)
   status: TodoStatus;
 
