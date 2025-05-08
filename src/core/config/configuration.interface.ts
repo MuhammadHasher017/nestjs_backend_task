@@ -10,5 +10,4 @@ export interface Configuration {
 
   port: number;
   baseUrl: string;
-  hashNumber: string;
 }

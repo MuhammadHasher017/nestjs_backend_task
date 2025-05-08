@@ -19,6 +19,5 @@ export default (): Configuration => {
 
     port: Number(process.env.PORT) || 3000,
     baseUrl: process.env.BASE_URL,
-    hashNumber: process.env.HASH_NUMBER,
   };
 };
