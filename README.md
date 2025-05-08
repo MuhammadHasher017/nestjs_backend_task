@@ -27,7 +27,6 @@ POSTGRES_DATABASE=greekaTaskCRUD
 PORT=4000
 BASE_URL=localhost
 NODE_ENV=development
-HASH_NUMBER=10
 
 **Important Notes:**
 - Do NOT use quotes in env values (no ' or ").
